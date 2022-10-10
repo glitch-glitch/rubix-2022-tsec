@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4f9d14f6b3.js" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <title>CashFlow</title>
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename= 'styling.css') }}"> -->
+</head>
+
+<body>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+        url('https://images.unsplash.com/photo-1500829243541-74b677fecc30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+      font-size: larger;
+    }
+
+    input {
+      width: 100%;
+      height: 35px;
+      border-radius: 10vw;
+      border: none;
+      padding: 2px 10px;
+      margin: 20px 8px;
+    }
+    button:hover{
+      color: rgba(255, 255, 255, 1);
+      box-shadow:  0 5px 15px rgba(92, 182, 122, 0.4);;
+    }
+  </style>
+</body>
+<form action="/login" style="border:1px solid #ccc" name="login" id="login" method="POST" novalidate>
+  <div class="container">
+    <h1 style="color: #8cdd2f;">Login</h1>
+    <table align="center" cellpadding="10">
+      <style>
+        h1 {
+          color: white;
+          font-size: 42px;
+          font-family: 'Lato', sans-serif;
+          text-align: center;
+        }
+      </style>
+
+      <form action="/">
+        <tr>
+      </form>
+
+
+      <tr>
+        <style>
+          td {
+            font-family: 'Monospace', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+          }
+        </style>
+        <b>
+          <td>Email id</td>
+        </b>
+        <td><input type="text" placeholder="Enter Email" name="email" required>
+      </tr>
+      </td>
+
+      <tr>
+        <td><b>Password</td></b>
+        <td><input type="password" placeholder="Enter Password" name="password" required></td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2" align="center">
+          <div class="clearfix">
+            <style>
+              button {
+                flex-direction: row-reverse;
+                width: 10vw;
+                color: #8cdd2f;
+                border: 3px solid #8cdd2f;
+                border-radius: 10vw;
+                background-color: transparent;
+                font-family: 'Lato', sans-serif;
+                font-size: 15px;
+                font-weight: bold;
+                letter-spacing: 0.7px;
+                max-height: 3vw;
+                min-height: 50px;
+                min-width: 120px;
+              }
+              button:hover{
+                color: white;
+                border: 3px solid white;
+              }
+            </style>
+            <button type="submit" class="signupbtn">Login</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script>
+{% if credentials_incorrect==1 %}
+window.alert("Incorrect credentials!")
+{% endif %}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4f9d14f6b3.js" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <title>CashFlow</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.8;
+            /* transition: opacity .2s; */
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            border-radius: 10vw;
+            border: none;
+            padding: 2px 10px;
+            margin: 10px 8px;
+        }
+
+        button:hover {
+            color: rgba(255, 255, 255, 1);
+            box-shadow: 0 5px 15px rgba(92, 182, 122, 0.4);
+            ;
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+                url('https://images.unsplash.com/photo-1500829243541-74b677fecc30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            font-size: larger
+        }
+    </style>
+
+    <form style="border:1px solid #ccc" name="signup" id="signup" action="/signup" method="POST" novalidate>
+        <div class="container">
+            <style>
+                h1 {
+                    color: white;
+                    font-size: 47px;
+                    font-family: 'Lato', sans-serif;
+                    text-align: center;
+                }
+
+                p {
+                    color: white;
+                    text-align: center;
+                }
+            </style>
+            <h1 style="letter-spacing: 0.7px;">New <span style="color: #8cdd2f;">User</span></h1>
+            <p>Please fill in this form to create an account.</p>
+            <table align="center" cellpadding="10">
+                <tr>
+                    <style>
+                        td {
+                            font-family: 'Monospace', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                            font-size: 20px;
+                            font-weight: 500
+                        }
+                    </style>
+                    <!-- name, email, password, phoneNo) -->
+                    <td>Full Name</td>
+                    <td><input type="text" name="name" placeholder="Your name.." id='name'></td>
+                </tr>
+
+
+                <tr>
+                    <td>Approximate Income</td>
+                    <td>
+                        <div class="slidecontainer">
+                            <input type="range" min="0" max="500000" value="0" class="slider" id="myRange" step="5000"
+                                name='income' id='income'>
+                            <p>Value : Rs <span id="demo"></span></p>
+                        </div>
+
+                        <script>
+                            var slider = document.getElementById("myRange");
+                            var output = document.getElementById("demo");
+                            output.innerHTML = slider.value;
+
+                            slider.oninput = function () {
+                                output.innerHTML = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <b>
+                        <td>Email id</td>
+                    </b>
+                    <td><input type="text" placeholder="Enter Email" name="email" required id='email'>
+                </tr>
+                </td>
+
+                <tr>
+                    <td><b>Password</td></b>
+                    <td><input type="password" placeholder="Enter Password" name="password" required id='password'></td>
+                </tr>
+
+                <tr>
+                    <td><b>Confirm Password</td></b>
+                    <td><input type="password" placeholder="Confirm Password" name="conpass" required id='conpass'></td>
+                </tr>
+
+                <tr>
+                    <td>Contact Number</td>
+                    <td><input type="integer" placeholder="10 digit number" name="phoneNo" required id='phoneNo'></td>
+                </tr>
+
+                <tr>
+                    <td>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                            Privacy</a>.</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <div class="clearfix">
+                            <style>
+                                button {
+                                    flex-direction: row-reverse;
+                                    width: 10vw;
+                                    color: #8cdd2f;
+                                    border: 3px solid #8cdd2f;
+                                    border-radius: 10vw;
+                                    background-color: transparent;
+                                    font-family: 'Lato', sans-serif;
+                                    font-size: 15px;
+                                    font-weight: bold;
+                                    letter-spacing: 0.7px;
+                                    max-height: 3vw;
+                                    min-height: 50px;
+                                    min-width: 120px;
+                                }
+
+                                button:hover {
+                                    color: white;
+                                    border: 3px solid white;
+                                }
+                            </style>
+                            <button type="submit" class="signupbtn" value="signup" name="signup">Sign Up</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <script>
+        {% if password == 1 %}
+        window.alert("Passwords Don't Match")
+        {% endif %}
+        {% if email == 1 %}
+        window.alert("User with same email id exists")
+        {% endif %}
+        {% if user_exist == 1 %}
+        window.alert("User doesnt exist!")
+        {% endif %}
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+        $(document).on('submit', function (e) {
+            console.log('hello');
+            if ($("#password").val() != $("#conpass").val()){
+                e.preventDefault();
+                window.alert("Password don't match!")
+            }
+            
+        });
+    </script>
+  
+</body>
+
+</html>

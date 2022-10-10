@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4f9d14f6b3.js" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/styling.css') }}">
+    <title>CashFlow</title>
+</head>
+
+<body>
+    <div id="home">
+        <div class="header">
+            <div class="time">
+            </div>
+            <div class="connect">
+            </div>
+        </div>
+        <nav>
+            <div id="logo">
+            </div>
+            <div id="navbar">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About </a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="intro">
+            <h3 class="green">WE ARE READY TO HELP YOU</h3>
+            <h1>CASHFLOW</h1>
+            <p>We are just one click away from providing your overall 
+               spend analysis and a distinct vision towards transparency of your transactions.</p>
+            <a href="/signup">
+                <button>NEW USER</button>
+               </a>
+            <a href="/login">
+                <button> LOGIN </button>
+               </a> 
+        </div>
+        <div class="footer">
+            <div class="req">
+                <h2>Request a call back right now?</h2>
+                <br>
+                <p>We would love to hear from you....</p>
+            </div>
+            <button>CONTACT US</button>
+        </div>
+    </div>
+ 
+
+    <div id="services">
+        <div id="serintro">
+            <h1>Our <span>TEAM</span></h1>
+            <br>
+            <p>Alone, we can do so little; together, we can do so much.</p>
+        </div>
+        <div id="grid">
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/dishant.png')}}" alt="Dishant">
+                <a href="https://www.linkedin.com/in/dishant-182b651a5/"><h3>Dishant Kumar</h3></a>
+                
+                <button>READ MORE</button>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/kaveya.jpeg')}}" alt="">
+                <h3>Kaveya Sivaprakasam</h3>
+                
+                <a href="https://www.linkedin.com/in/sivakaveya/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/utkarsh.jpeg')}}" alt="">
+                <h3>Utkarsh Salvi</h3>
+                
+                <a href="https://www.linkedin.com/in/utkarsh-salvi-2a4b5a1b7/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/tuba.jpg')}}" alt="">
+                <h3>Tuba Momin</h3>
+                
+                <a href="https://www.linkedin.com/in/tuba-momin-80b0571bb/"><button>READ MORE</button></a>
+            </div>
+        </div>
+    </div>
+
+   
+    <div id="copy">
+        <p>Copyright &copy 2022 CashFlow Rubix Co., Ltd </p>
+    </div>
+</body>
+
+</html>

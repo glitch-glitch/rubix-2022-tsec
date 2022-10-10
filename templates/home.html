@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4f9d14f6b3.js" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/styling.css') }}">
+    <title>CashFlow</title>
+    <style>
+        #stats {
+            background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.82)), url("https://images.unsplash.com/photo-1551836022-4c4c79ecde51?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80") no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            padding: 5vw 5vw;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-between;
+        }
+
+        #stats_intro,
+        #stats #stats_grid {
+            width: 100%;
+            line-height: 35px;
+            letter-spacing: 1.2px;
+            /* padding: 5vw; */
+        }
+
+        #stats_grid .stats_item {
+            width: 220px;
+            height: 150px;
+            background-color: rgba(256, 256, 256, 0.15);
+            text-align: center;
+            padding-top: 24px;
+            margin: 10px;
+        }
+
+        #stats_grid {
+            margin: 70px 0px;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-evenly;
+        }
+
+        #stats_grid .stats_item h1 {
+            color: #8cdd2f;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="home">
+        <div class="header">
+            <div class="time">
+            </div>
+            <div class="connect">
+            </div>
+        </div>
+        <nav>
+            <div id="logo">
+            </div>
+            <div id="navbar">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About </a></li>
+                    <li><a href="/budget">Budget</a></li>
+                    <li><a href="#income">Income</a>
+                        <ul>
+                            <form id='income' name="income" action="/income" method="POST" novalidate>
+                                <label>Change your Income</label>
+                                <input type="text" id="income" name="income" placeholder="income"
+                                    style="margin: 0 10px ;">
+                                <button style="float: right; margin: 0;" type="submit">Change</button>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="#threshold">Threshold</a>
+                        <ul>
+                            <form id='threshold' name="threshold" id="threshold" action="/threshold" method="POST"
+                                novalidate>
+                                <label>Change your Threshold</label>
+                                <input type="text" id="threshold" name="threshold" placeholder="Threshold"
+                                    style="margin: 0 10px ;">
+                                <button style="float: right; margin: 0;" type="submit">Change</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="intro">
+            <h3 class="green">WE ARE READY TO HELP YOU</h3>
+            <h1>CASHFLOW</h1>
+            <p>We are just one click away from providing your overall
+                spend analysis and a distinct vision towards transparency of your transactions.</p>
+        </div>
+
+
+    </div>
+
+    <div id="contact">
+        <div id="contact_head">
+            <h1 style="letter-spacing: 0.7px;">Upload image or screenshot of <span class="green">a Bill</span></h1>
+            <br>
+            <p style="font-size: 16px;letter-spacing: 0.7px;">LET'S ANALYSE</p>
+        </div>
+        <form id='img' name="img" id="img" action="/home" method="POST" novalidate enctype="multipart/form-data">
+
+            <div class="item">
+                <label for="inputFile">Any image (only pdf/png/jpg is allowed): </label>
+                <input type="file" name="img">
+            </div>
+            <button style="font-size: 16px;letter-spacing: 0.7px" type="submit">Upload</button>
+        </form>
+    </div>
+
+    <div id="stats">
+        <div id="stats_intro">
+            <h5 style="margin-bottom: 10px;">ANALYSIS</h5>
+            <h3 style="line-height: normal; font-size: 40px;">Current<span class="green"> Expenditure</span></h3>
+            <br>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">Total</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Categories</button>
+
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <canvas id="myChart" style="color: white;"></canvas>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <canvas id="myChart2" style="color: white;"></canvas>
+                </div>
+
+            </div>
+            <!-- <div>
+                <canvas id="myChart" style="color: white;"></canvas>
+            </div> -->
+        </div>
+        <div id="stats_grid">
+            <div class="stats_item">
+                <h1 style="color: #c80616;">45%</h1>
+                <h3>Food</h3>
+            </div>
+            <div class="stats_item">
+                <h1 style="color: #00C100;">10%</h1>
+                <h3>Rent and EMI</h3>
+            </div>
+            <div class="stats_item">
+                <h1 style="color: #c80616">20%</h1>
+                <h3>Lifestyle</h3>
+            </div>
+            <div class="stats_item">
+                <h1 style="color: #00C100;">5%</h1>
+                <h3>Others</h3>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="services">
+        <div id="serintro">
+            <h1>Our <span>TEAM</span></h1>
+            <br>
+            <p>Alone, we can do so little; together, we can do so much.</p>
+        </div>
+        <div id="grid">
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/dishant.png')}}" alt="Dishant">
+                <h3>Dishant Kumar</h3>
+
+                <a href="https://www.linkedin.com/in/dishant-182b651a5/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/kaveya1.jpeg')}}" alt="">
+                <h3>Kaveya Sivaprakasam</h3>
+
+                <a href="https://www.linkedin.com/in/sivakaveya/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/utkarsh.jpeg')}}" alt="">
+                <h3>Utkarsh Salvi</h3>
+
+                <a href="https://www.linkedin.com/in/utkarsh-salvi-2a4b5a1b7/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/tuba.jpg')}}" alt="">
+                <h3>Tuba Momin</h3>
+
+                <a href="https://www.linkedin.com/in/tuba-momin-80b0571bb/"><button>READ MORE</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="copy">
+        <p>Copyright &copy 2022 CashFlow Rubbix Co., Ltd </p>
+    </div>
+    <script>
+        {% if logged == 1 %}
+        window.alert("Logged in Successfully!")
+        {% endif %}
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var myCanvas = document.getElementById("myChart");
+        myCanvas.width = 500;
+        myCanvas.height = 270;
+        const labels = [
+            'week 1',
+            'week 2',
+            'week 3',
+            'week 4'
+        ];
+        
+        const data = {
+            labels: labels,
+            color: 'white',
+            datasets: [{
+                label: 'Total Expenditure',
+                backgroundColor: '#8cdd2f',
+                borderColor: '#8cdd2f',
+                data: {{total}},
+            },
+
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            color: 'white',
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        var myCanvas2 = document.getElementById("myChart2");
+        myCanvas2.width = 800;
+        myCanvas2.height = 500;
+
+
+        const data2 = {
+            labels: labels,
+            color: 'white',
+            datasets: [{
+                label: 'Food',
+                backgroundColor: '#FFAC28',
+                borderColor: '#FFAC28',
+                data: {{food}},
+            },
+            {
+                label: 'Rent',
+                backgroundColor: '#0252AE',
+                borderColor: '#0252AE',
+                data: {{rent}},
+            },
+            {
+                label: 'Lifestyle',
+                backgroundColor: '#C1212E',
+                borderColor: '#C1212E',
+                data: {{life}},
+            },
+            {
+                label: 'Others',
+                backgroundColor: 'white',
+                borderColor: 'white',
+                data: {{others}},
+            }
+            ]
+        };
+
+        const config2 = {
+            type: 'line',
+            data: data2,
+            color: 'white',
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+    </script>
+    <script>
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+    <script>
+        const myChart2 = new Chart(
+            document.getElementById('myChart2'),
+            config2
+        );
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

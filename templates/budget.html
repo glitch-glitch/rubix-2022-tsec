@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4f9d14f6b3.js" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/styling.css') }}">
+    <!-- <link rel="stylesheet" href="styling.css"> -->
+    <title>CashFlow</title>
+    <style>
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #8cdd2f;
+            outline: none;
+            opacity: 1;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border: solid green 0.05em;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        #stats_grid .stats_item {
+            width: 220px;
+            height: 110px;
+            background-color: rgba(256, 256, 256, 0.15);
+            text-align: center;
+            padding-top: 24px;
+            margin: 10px;
+        }
+
+        #stats_grid {
+            margin: 70px 0px;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-evenly;
+        }
+
+        #stats_grid .stats_item h1 {
+            color: #8cdd2f;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="home">
+        <div class="header">
+            <div class="time">
+            </div>
+            <div class="connect">
+            </div>
+        </div>
+        <nav>
+            <div id="logo">
+            </div>
+            <div id="navbar">
+                <ul>
+                    <li><a href="/home" class="active">Home</a></li>
+                    <li><a href="#about">About </a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#threshold">Threshold</a>
+                        <ul>
+                            <form id='threshold'>
+                                <label>Change your Threshold</label>
+                                <input type="text" id="threshold" name="threshold" placeholder="Threshold"
+                                    style="margin: 0 10px ;">
+                                <button style="float: right; margin: 0;">Change</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="intro">
+            <h3 class="green">WE ARE READY TO HELP YOU</h3>
+            <h1>CASHFLOW</h1>
+            <p>We are just one click away from providing your overall
+                spend analysis and a distinct vision towards transparency of your transactions.</p>
+        </div>
+
+        <div class="footer">
+            <div class="req">
+                <h2>Lets Set Your Budget</h2>
+                <br>
+                <p>You can also Customize your budget....</p>
+            </div>
+            <!-- <button>CONTACT US</button> -->
+        </div>
+
+    </div>
+
+
+    <div id="review">
+        <div id="review_head">
+            <h1 style="letter-spacing: 0.7px;">Budget <span class="green">Allocation</span></h1>
+            <br>
+            <p style="font-size: 16px;letter-spacing: 0.7px;">Your Approximate Income: Rs <span id="income"> </span>
+            </p>
+        </div>
+        <div id="review_grid">
+            <div class="review_item">
+                <h3>Pie Chart</h3>
+                <p class="green">Approximate Distribution of the budget</p>
+                <canvas id="myCanvas">
+
+                </canvas>
+                <div style='text-align: left;'>
+                    <p>Food: Rs <span id="foodRs"> </span></p>
+                    <p>Rent and Emi: Rs <span id="rentRs"> </span></p>
+                    <p>Life: Rs <span id="lifeRs"> </span></p>
+                    <p>Others: Rs <span id="othersRs"> </span></p>
+                    <h2 class="green">Savings: Rs <span id="savingRs"> </span></h2>
+                </div>
+            </div>
+            <form name="budget" id="budget" action="/budget" method="POST" novalidate>
+            <div class="review_item">
+                <h3>Sliders</h3>
+                <p class="green">Budget set for you. You can also customise it.</p>
+                <div id="stats_grid">
+                    <div class="stats_item">
+                        <input type="range" min="0" max="100" value={{data.food}} class="slider" id="food"
+                            onChange="refreshPiechart();" style="background-color: #FFAC28;" name="food">
+                        <h3 id="f">Food Expenses: <span id="foodValue"> </span> %</h3>
+                    </div>
+                    <div class="stats_item">
+                        <input type="range" min="0" max="100" value={{data.rent}} class="slider" id="rent"
+                            onChange="refreshPiechart();" style="background-color: #0252AE;" name="rent">
+                        <h3 id='r' style="color: black;">Rent and EMI: <span id="rentValue"> </span> %</h3>
+                    </div>
+                    <div class="stats_item">
+                        <input type="range" min="0" max="100" value={{data.life}} class="slider" id="life"
+                            onChange="refreshPiechart();" style="background-color: #C1212E;" name="life">
+                        <h3 id='l'>Lifestyle: <span id="lifeValue"> </span> %</h3>
+                    </div>
+                    <div class="stats_item">
+                        <input type="range" min="0" max="100" value={{data.others}} class="slider" id="others"
+                            onChange="refreshPiechart();" style="background-color: #1E384A;" name="others">
+                        <h3 id='o'>Others: <span id="othersValue"> </span> %</h3>
+                    </div>
+                </div>
+                <h2 class="green" style="font-weight: bold;">Savings: <span id="savingValue"> </span> %</h2>
+                <button type="submit" class="signupbtn" value="budget" name="Budget">Save</button>
+                <style>
+                    .red{
+                        color:#C1212E
+                    }
+                    button {
+                        flex-direction: row-reverse;
+                        width: 10vw;
+                        color: #8cdd2f;
+                        border: 3px solid #8cdd2f;
+                        border-radius: 10vw;
+                        background-color: transparent;
+                        font-family: 'Lato', sans-serif;
+                        font-size: 15px;
+                        font-weight: bold;
+                        letter-spacing: 0.7px;
+                        max-height: 3vw;
+                        min-height: 50px;
+                        min-width: 120px;
+                    }
+
+                    button:hover {
+                        color: black;
+                        border: 3px solid black;
+                    }
+                </style>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <div id="services">
+        <div id="serintro">
+            <h1>Our <span>TEAM</span></h1>
+            <br>
+            <p>Alone, we can do so little; together, we can do so much.</p>
+        </div>
+        <div id="grid">
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/dishant.png')}}" alt="Dishant">
+                <h3>Dishant Kumar</h3>
+
+                <a href="https://www.linkedin.com/in/dishant-182b651a5/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/kaveya1.jpeg')}}" alt="">
+                <h3>Kaveya Sivaprakasam</h3>
+
+                <a href="https://www.linkedin.com/in/sivakaveya/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/utkarsh.jpeg')}}" alt="">
+                <h3>Utkarsh Salvi</h3>
+
+                <a href="https://www.linkedin.com/in/utkarsh-salvi-2a4b5a1b7/"><button>READ MORE</button></a>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/tuba.jpg')}}" alt="">
+                <h3>Tuba Momin</h3>
+
+                <a href="https://www.linkedin.com/in/tuba-momin-80b0571bb/"><button>READ MORE</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="copy">
+        <p>Copyright &copy 2022 CashFlow Rubix Co., Ltd </p>
+    </div>
+
+    <!-- <script src="{{url_for('static', filename= 'js/budget.js') }}">
+    </script> -->
+
+    <script>
+        tf={{food}}
+        tr={{rent}}
+        tl={{life}}
+        tO={{others}}
+        console.log(tf,tr,tl,tO)
+    </script>
+
+
+    <script>
+        /************** Canvas ***************/
+        var myCanvas = document.getElementById("myCanvas");
+        myCanvas.width = 300;
+        myCanvas.height = 300;
+
+        var ctx = myCanvas.getContext("2d"),
+            val;
+
+        var income = {{income}};
+        var incomeDisplay = document.getElementById('income');
+        incomeDisplay.innerHTML = income
+
+        var foodDisplay = document.getElementById('foodRs');
+        var lifeDisplay = document.getElementById('lifeRs');
+        var rentDisplay = document.getElementById('rentRs');
+        var othersDisplay = document.getElementById('othersRs');
+        var savingDisplay = document.getElementById('savingRs');
+
+        //Display default vals
+
+
+        /************** Slider Variables ***************/
+        //Food
+        var sliderFood = document.getElementById("food");
+        var outputFood = document.getElementById("foodValue");
+        outputFood.innerHTML = sliderFood.value; // Display the default slider value
+        foodDisplay.innerHTML = income * sliderFood.value / 100
+
+        // Update the current slider value (each time you drag the slider handle)
+        sliderFood.oninput = function () {
+            outputFood.innerHTML = this.value;
+            foodDisplay.innerHTML = income * this.value / 100
+        };
+
+        //Rent	
+        var sliderRent = document.getElementById("rent");
+        var outputRent = document.getElementById("rentValue");
+        outputRent.innerHTML = sliderRent.value; // Display the default slider value
+        rentDisplay.innerHTML = income * sliderRent.value / 100
+
+        // Update the current slider value (each time you drag the slider handle)
+        sliderRent.oninput = function () {
+            outputRent.innerHTML = this.value;
+            rentDisplay.innerHTML = income * this.value / 100
+        };
+
+        //Lifestyle	
+        var sliderLife = document.getElementById("life");
+        var outputLife = document.getElementById("lifeValue");
+        outputLife.innerHTML = sliderLife.value; // Display the default slider value
+        lifeDisplay.innerHTML = income * sliderLife.value / 100
+
+        // Update the current slider value (each time you drag the slider handle)
+        sliderLife.oninput = function () {
+            outputLife.innerHTML = this.value;
+            lifeDisplay.innerHTML = income * this.value / 100
+        };
+
+        //Others
+        var sliderOthers = document.getElementById("others");
+        var outputOthers = document.getElementById("othersValue");
+        outputOthers.innerHTML = sliderOthers.value; // Display the default slider value
+        othersDisplay.innerHTML = income * sliderOthers.value / 100
+
+
+        
+        // Update the current slider value (each time you drag the slider handle)
+        sliderOthers.oninput = function () {
+            outputOthers.innerHTML = this.value;
+            othersDisplay.innerHTML = income * this.value / 100
+        };
+        console.log(parseInt(foodDisplay.innerHTML))
+        if (parseInt(foodDisplay.innerHTML)>=tf){
+            document.getElementById('f').style.color = "green";
+        }
+        else{
+            document.getElementById('f').style.color = "red";
+        }
+
+        if (parseInt(rentDisplay.innerHTML)>=tr){
+            document.getElementById('r').style.color = "green";
+        }
+        else{
+            document.getElementById('r').style.color = "red";
+        }
+
+        if (parseInt(lifeDisplay.innerHTML)>=tl){
+            document.getElementById('l').style.color = "green";
+        }
+        else{
+            document.getElementById('l').style.color = "red";
+        }
+        
+        if (parseInt(othersDisplay.innerHTML)>=tO){
+            document.getElementById('o').style.color = "green";
+        }
+        else{
+            document.getElementById('o').style.color = "red";
+        }
+
+
+
+
+        /************** Utility Functions ***************/
+        function changeColoursData() {
+            var categories = {
+                "Food": parseInt(sliderFood.value),
+                "Rent": parseInt(sliderRent.value),
+                "Life": parseInt(sliderLife.value),
+                "Others": parseInt(sliderOthers.value),
+                "Saving": parseInt(100 - parseInt(sliderFood.value) - parseInt(sliderRent.value) - parseInt(sliderLife.value) - parseInt(sliderOthers.value))
+            };
+            console.log('Im here', categories.Saving)
+            if (categories.Saving < 0) {
+                window.alert("Budget Overflow!!")
+                sliderFood.value={{data.food}}
+                sliderLife.value={{data.life}}
+                sliderRent.value={{data.rent}}
+                sliderOthers.value={{data.others}}
+
+                outputFood.innerHTML = sliderFood.value;
+                foodDisplay.innerHTML = income * sliderFood.value / 100
+
+                outputRent.innerHTML = sliderLife.value=10;
+                rentDisplay.innerHTML = income * sliderLife.value / 100
+
+                outputLife.innerHTML = sliderRent.value;
+                lifeDisplay.innerHTML = income * sliderRent.value / 100
+
+                outputOthers.innerHTML = sliderOthers.value;
+                othersDisplay.innerHTML = income * sliderOthers.value / 100
+
+                return {
+                    "Food": 20,
+                    "Rent": 30,
+                    "Life": 10,
+                    "Others": 20,
+                    "Saving": 20
+                };
+            }
+            var outputSaving = document.getElementById("savingValue");
+            outputSaving.innerHTML = categories.Saving;
+            savingDisplay.innerHTML = income * categories.Saving / 100
+            return categories;
+
+        }
+
+        /* https://code.tutsplus.com/tutorials/how-to-draw-a-pie-chart-and-doughnut-chart-using-javascript-and-html5-canvas--cms-27197 */
+
+        function drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        /************** Piechart Object ***************/
+        class Piechart {
+            constructor(options) {
+                this.options = options;
+                this.canvas = options.canvas;
+                this.ctx = this.canvas.getContext("2d");
+                this.colors = options.colors;
+
+                this.draw = function () {
+                    var total_value = 0;
+                    var color_index = 0;
+                    for (var categ in this.options.data) {
+                        val = this.options.data[categ];
+                        total_value += val;
+                    }
+
+                    var start_angle = 0;
+                    for (categ in this.options.data) {
+                        val = this.options.data[categ];
+                        var slice_angle = 2 * Math.PI * val / total_value;
+
+                        drawPieSlice(
+                            this.ctx,
+                            this.canvas.width / 2,
+                            this.canvas.height / 2,
+                            Math.min(this.canvas.width / 2, this.canvas.height / 2),
+                            start_angle,
+                            start_angle + slice_angle,
+                            this.colors[color_index % this.colors.length]
+                        );
+
+                        start_angle += slice_angle;
+                        color_index++;
+                    }
+                };
+
+            }
+        }
+
+
+        /************** Initialize code and draw pie chart ***************/
+        function refreshPiechart() {
+            var myPiechart = new Piechart(
+                {
+                    canvas: myCanvas,
+                    data: changeColoursData(),
+                    colors: ["#FFAC28", "#0252AE", "#C1212E", "#1E384A", "#69B331"]
+                    //colours : food,rent,life,others,saving
+                }
+
+            );
+            console.log('hi')
+            myPiechart.draw();
+
+        }
+
+        refreshPiechart();
+    </script>
+</body>
+
+</html>
